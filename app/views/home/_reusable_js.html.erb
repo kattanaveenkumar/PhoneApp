@@ -1,0 +1,59 @@
+<script>
+  $(document).ready(function () {
+      $('.keyboard').keyboard({
+          layout: 'custom',
+          usePreview: false,
+          autoAccept: true,
+          autoAcceptOnEsc: true,
+          stayOpen: true,
+          alwaysOpen: true,
+          caretToEnd: true,
+          lockInput: true,
+          initialFocus: false,
+          initialized: function(e, keyboard, el) {
+              if (el.id === "username") {
+                  setTimeout(function() {
+                      keyboard.reveal();
+                  }, 100);
+              }
+          },
+          display: {
+              'next': '\u21e8',
+              'prev': '\u21e6',
+          },
+          switchInput: function() {
+              var $kb = $('.ui-keyboard-input-current');
+              $kb.data('keyboard').accept();
+              $kb.siblings().data('keyboard').reveal();
+          },
+          customLayout: {
+              'default': [
+                  '1 2 3 4 5 6 7 8 9 0',
+                  'a b c d e f g h i j',
+                  'k l m n o p q r s t',
+                  '{tab} u v w x y z , .',
+                  '{shift} {space} {prev} {next} {bksp}'
+              ],
+              'shift': [
+                  '1 2 3 4 5 6 7 8 9 0',
+                  'A B C D E F G H I J',
+                  'K L M N O P Q R S T',
+                  '{tab} U V W X Y Z , .',
+                  '{shift} {space} {prev} {next} {bksp}'
+              ]
+          }
+      });
+
+  });
+
+
+    $("#contact-list-search").bind('blur change keydown keypress keyup', function() {
+
+        var form = $("#live-search-form"); // grab the form wrapping the search bar.
+        var url = "/search"; // live_search action.
+        var formData = form.serialize(); // grab the data in the form
+        $.get(url, formData, function(html) { // perform an AJAX get
+            $("#live-search-results").html(html); // replace the "results" div with the results
+        });
+    });
+</script>

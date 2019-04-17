@@ -1,0 +1,20 @@
+<ul class="list-group" id="contact-list">
+  <% unless @contacts.blank?%>
+    <% @contacts.each do |contact|%>
+      <li class="list-group-item">
+        <div class="col-xs-12 col-sm-3">
+          <%= image_tag "user.png", alt: "user", size: "50x50"%>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+          <span class="glyphicon"></span><span class="name"><%= contact.name%></span><br/>
+          <span class="glyphicon glyphicon-earphone text c-info" data-toggle="tooltip" title="(870) 288-4149"></span>
+          <span class=""> <span class="text"><%= contact.phone%></span><br/></span>
+        </div>
+        <div class="clearfix"></div>
+      </li>
+    <% end %>
+  <% else %>
+      <li class="list-group-item">No contacts found.</li>
+  <% end %>
+
+</ul>

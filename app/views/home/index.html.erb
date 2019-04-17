@@ -1,0 +1,46 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading c-list">
+          <span class="title">Contacts</span>
+          <ul class="pull-right c-controls">
+            <li><%= link_to '<i class="glyphicon glyphicon-plus"></i>'.html_safe, contacts_new_path, remote: true%></li>
+          </ul>
+        </div><br/>
+        <div class="row">
+          <div class="col-xs-12">
+            <%= form_tag search_path, remote: true, method: 'get', id: "live-search-form" do %>
+                <div class="form-group">
+                <input type="text" class="keyboard form-control" id="contact-list-search" name="q" placeholder="Search contacts">
+                </div>
+              <% end %>
+          </div>
+        </div>
+        <div id="live-search-results">
+        <%= render "contacts/contacts"%>
+        </div>
+        <div class="row">
+          <div class="contact_form"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+
+    $("#contact-list-search").bind('blur change keydown keypress keyup', function() {
+
+        var form = $("#live-search-form"); // grab the form wrapping the search bar.
+        var url = "/search"; // live_search action.
+        var formData = form.serialize(); // grab the data in the form
+        $.get(url, formData, function(html) { // perform an AJAX get
+            $("#live-search-results").html(html); // replace the "results" div with the results
+        });
+    });
+
+</script>
